@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section class="todoapp">
+      <header class="header">
+        <h1>Todos</h1>
+      </header>
+      <input v-model="newTodo" @keyup.enter="addTodo" type="text" class="new-todo" autofocus placeholder="需要做甚麼?">
+      <!--v-bind-->
+      <main class="main" v-show="todos.length">
+        <input id="toggle-all" type="checkbox" class="toggle-all">
+        <label for="toggle-all"></label>
+        <ul class="todo-list">
+          <li v-for="todo in filteredTodos" :key="todo.id" class="todo" :class="{completed: todo.completed}">
+            <div class="view">
+              <input v-model="todo.completed" type="checkbox" class="toggle">
+              <label for="">{{todo.title | toUpperCase}} </label>
+              <button @click="removeTodo(todo)" class="destroy" />
+            </div>
+            <input type="text" class="edit">
+          </li>
+        </ul>
+      </main>
+      <footer class="footer" v-show="todos.length">
+        <span class="todo-count">
+          <strong>{{remaining}}</strong> {{ remaining | pluralize }} left
+        </span>
+        <ul class="filters">
+          <li>
+            <a href="#/all" @click="setVisibility('all')">All</a>
+          </li>
+          <li>
+            <a href="#/active" @click="setVisibility('active')">Active</a>
+          </li>
+          <li>
+            <a href="#/completed" @click="setVisibility('completed')">Completed</a>
+          </li>
+        </ul>
+        <button class="clear-completed">
+          Clear completed
+        </button>
+      </footer>
+      </setion>
+  </div>  
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+    <script type="text/javascript" src="index.js"></script> 
+</body>
+</html>
+
